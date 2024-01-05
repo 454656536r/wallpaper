@@ -21,8 +21,8 @@
       <div class="Carousel">
         <div class="block">
           <el-carousel height="200px">
-            <el-carousel-item v-for="item in 4" :key="item">
-              <!-- <h3 class="small">{{ item }}</h3> -->
+            <el-carousel-item v-for="(item, index) in userList" :key="index">
+              <img :src= item.img class="boximg">
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -30,27 +30,31 @@
       <div class="classification">
         <div class="selected">
           <div>
-            <img src="../assets/1.png" class="image">
-            <p>聊天背景</p>
+              <router-link to="/tou">
+                <img src="../assets/1.png" class="image">
+                <a>聊天背景</a>
+              </router-link>
           </div>
           <div>
             <img src="../assets/2.png" class="image">
-            <p>头像</p>
+            <a>头像</a>
           </div>
           <div>
             <img src="../assets/3.png" class="image">
-            <p>表情</p>
+            <a>表情</a>
           </div>
           <div>
             <img src="../assets/1.png" class="image">
-            <p>壁纸精选</p>
+            <a>壁纸精选</a>
           </div>
+          <router-view />
         </div>
         <div class="Headlines">
           <div class="first"> <img src="../assets/头条.png" class="firstr"></div>
-          <el-carousel height="38px" direction="vertical">
-            <el-carousel-item v-for="item in 3" :key="item">
-              <!-- <h3 class="medium">{{ item }}</h3> -->
+          <el-carousel height="38px" direction="vertical" indicator-position="none">
+            <el-carousel-item v-for="(item, index) in roll" :key="index">
+              <button class="Introduction">{{ item.uptodate }}</button>
+              <span class="recommend">{{ item.introduce }}</span>
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -72,27 +76,60 @@
           <h4>动态圈子 <button>
               <h3>话题</h3>
             </button> </h4>
-            <img src="../assets/圈子.png" class="assetsquan">
+          <img src="../assets/圈子.png" class="assetsquan">
         </div>
         <div class="tab">
-          <ul>
-            <li>精选</li>
-            <li>最新</li>
-            <li>主题套图</li>
-            <li>天生一对</li>
-            <li>最佳锁屏</li>
-            <li>一天最热</li>
-            <li>一周排行</li>
-            <li>人气热榜</li>
-            <li>上传精选</li>
-          </ul>
+          <template>
+            <el-tabs v-model="activeName" @tab-click="handleClick">
+              <el-tab-pane label="精选" name="first1">
+                <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="最新" name="first3">
+                <div class="Picture-Wallpaper" v-for="(item, index) in popular" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="主题套图" name="first2">
+                <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="天生一对" name="first3">
+                <div class="Picture-Wallpaper" v-for="(item, index) in popular" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="最佳锁屏" name="first4">
+                <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="一天最热" name="first5">
+                <div class="Picture-Wallpaper" v-for="(item, index) in popular" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="一周排行" name="first6">
+                <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="人气热榜" name="first7">
+                <div class="Picture-Wallpaper" v-for="(item, index) in popular" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="上传精选" name="first8">
+                <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
+                  <img :src= item.image>
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+          </template>
+          
         </div>
-        <div class="Picture-Wallpaper"></div>
-        <div class="Picture-Wallpaper"></div>
-        <div class="Picture-Wallpaper"></div>
-        <div class="Picture-Wallpaper"></div>
-        <div class="Picture-Wallpaper"></div>
-        <div class="Picture-Wallpaper"></div>
       </div>
     </div>
     <!-- 底部 -->
@@ -107,7 +144,8 @@
         <span>精选</span>
       </div>
       <div>
-        <svg t="1704351968437" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <router-link to="/about">
+          <svg t="1704351968437" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="16998" width="32" height="32">
           <path
             d="M471.686852 101.799524c204.344015 0.792039 367.17966 165.864632 365.341802 370.361119-1.805112 200.791096-167.922501 364.102578-368.817973 362.586039-204.01758-1.540076-367.660614-167.740352-365.522927-371.229906C104.803951 262.195607 269.228791 101.015671 471.686852 101.799524zM468.74894 747.379868c154.815995 0.411369 279.958156-122.55422 281.982256-277.076526 2.02717-154.871253-126.195144-283.401582-282.128589-282.802948-153.907299 0.590448-279.005458 126.299521-279.005458 280.371572C189.597149 622.259196 314.14784 746.968499 468.74894 747.379868z"
@@ -117,51 +155,154 @@
             p-id="17000" fill="#2c2c2c"></path>
         </svg>
         <span>搜索</span>
+        </router-link>
       </div>
       <div>
-        <svg t="1704351911532" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <router-link to="/show">
+          <svg t="1704351911532" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="15752" width="32" height="32">
           <path
             d="M512.5 542.5c59.36 0 115.17-23.12 157.14-65.09 41.97-41.97 65.09-97.78 65.09-157.14s-23.12-115.17-65.09-157.14c-41.97-41.97-97.78-65.09-157.14-65.09-59.36 0-115.17 23.12-157.14 65.09s-65.09 97.78-65.09 157.14 23.12 115.17 65.09 157.14 97.78 65.09 157.14 65.09z m0-384.46c89.45 0 162.23 72.78 162.23 162.23S601.95 482.5 512.5 482.5s-162.23-72.78-162.23-162.23 72.78-162.23 162.23-162.23zM715.57 669.86C661.19 615.49 588.9 585.54 512 585.54s-149.19 29.95-203.57 84.32c-54.38 54.38-84.32 126.67-84.32 203.57v19.96c0 16.57 13.43 30 30 30h515.78c16.57 0 30-13.43 30-30v-19.96c0-76.9-29.95-149.19-84.32-203.57zM284.33 863.39c2.46-57.1 25.86-110.43 66.53-151.1 43.04-43.04 100.27-66.75 161.14-66.75s118.1 23.71 161.14 66.75c40.67 40.67 64.07 94 66.53 151.1H284.33z"
             p-id="15753" fill="#2c2c2c"></path>
         </svg>
         <span>我的</span>
+        </router-link>
+        
       </div>
     </div>
   </div>
 </template>
 <script>
+import axios from "axios"
 export default {
   data() {
     return {
-
+      activeName:'first1',
+      imageArray: [
+        {
+          img: "https://img1.baidu.com/it/u=1461245034,737626739&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1704560400&t=e91440639611cdab9587c6dc65318350"
+        },
+        {
+          img: "https://img1.baidu.com/it/u=805833920,1021605060&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1704560400&t=b5887a9112428a4c68c44f9ba8d11c67"
+        },
+        {
+          img: "https://img1.baidu.com/it/u=2182643607,3196213600&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1704560400&t=04a0815feb05d7e430b61adf7a06ad3b"
+        },
+        {
+          img: "https://img2.baidu.com/it/u=3442745478,1372239926&fm=253&app=138&size=w931&n=0&f=JPEG&fmt=auto?sec=1704560400&t=cf66b95c00262dde98c18312eeb20bc0"
+        },
+      ],
+      roll: [
+        {
+          uptodate: "最新",
+          introduce: "好看的美女头像~"
+        },
+        {
+          uptodate: "最新",
+          introduce: "绝美星辰头像~!"
+        },
+        {
+          uptodate: "最新",
+          introduce: "这组壁纸当锁屏，超好看!!"
+        },
+        {
+          uptodate: "最新",
+          introduce: "新年好运壁纸，2024接好运!"
+        },
+      ],
+      userList:[],
+      popular:[],
+      moblie:[],
     }
-  }
+  },
+  mounted() {
+    axios.get('http://127.0.0.1:3000/wall/')
+      .then((response) => {
+        this.userList = response.data.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      axios.get('http://127.0.0.1:3000/wall/moblie')
+      .then((response) => {
+        this.moblie = response.data.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      axios.get('http://127.0.0.1:3000/wall/popular')
+      .then((response) => {
+        this.popular = response.data.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+      handleClick(tab, event) {
+        console.log(tab, event);
+      }
+    }
 }
 </script>
 <style scoped>
-.assetsquan{
+.Picture-Wallpaper img{
+  width: 100%;
+  height: 100%;
+}
+span{
+  color: black;
+  text-decoration: none;
+}
+.recommend {
+  color: gray;
+  font-size: 13px;
+  margin-left: 10px;
+}
+
+.Introduction {
+  width: 35px;
+  border: none;
+  font-size: 10px;
+  color: rgb(255, 126, 126);
+  margin-top: 14px;
+  margin-left: 5px;
+  background-color: rgb(255, 196, 196);
+}
+
+.boximg {
+  width: 100%;
+  height: 100%;
+}
+
+.assetsquan {
   width: 100%;
 }
-li{
+
+li {
   list-style: none;
 }
-.tab li:hover{
-  color:rgb(0, 179, 255);
+
+.tab el-tab-pane:hover {
+  color: rgb(0, 179, 255);
   border-bottom: 3px solid rgb(0, 179, 255);
 }
-.tab li{
+
+.tab el-tab-pane {
   margin: 10px;
   display: inline-block;
 }
-.tab{
+
+.tab {
   width: 100%;
-  height: 40px;
   float: left;
+  position: sticky;
+  top: 0;
   overflow-x: auto;
   white-space: nowrap;
 }
-.Picture-Wallpaper{
+
+.Picture-Wallpaper {
   width: 110px;
   height: 200px;
   float: left;
@@ -169,6 +310,7 @@ li{
   background-color: #d3dce6;
   margin: 4.2px;
 }
+
 .circle button {
   width: 60px;
   padding: 3px;
@@ -250,9 +392,10 @@ li{
   float: left;
 }
 
-.selected p {
+.selected a {
   font-size: 10px;
-  text-align: center;
+  color: black;
+  text-decoration: none;
 }
 
 .image {
@@ -269,6 +412,7 @@ li{
   margin-right: 20px;
   margin-top: 10px;
   float: left;
+  text-align: center;
 }
 
 .Headlines {
@@ -291,7 +435,8 @@ li{
 }
 
 .head {
-  position: sticky;
+  width: 100%;
+  position: fixed;
   top: 0;
   background-color: #fff;
   z-index: 100;
@@ -311,13 +456,13 @@ li{
   /* 背景图片的大小 */
   background-position: 70px center;
   /* 背景图片的位置 */
-  width: 180px;
+  width: 200px;
   height: 30px;
   float: left;
+  border: none;
   text-align: center;
   background-repeat: no-repeat;
   margin: -35px 10px 0px 37px;
-  border: 1px solid gainsboro;
   border-radius: 3px;
   background-color: rgb(242, 242, 242);
   line-height: 30px;
@@ -354,7 +499,7 @@ li{
   width: 95%;
   height: 200px;
   border-radius: 5px;
-  margin: 10px;
+  margin:60px 10px 10px 10px;
 }
 
 .el-carousel__item h3 {
@@ -363,13 +508,4 @@ li{
   opacity: 0.75;
   line-height: 200px;
   margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n+1) {
-  background-color: #d3dce6;
-}
-</style>
+}</style>
