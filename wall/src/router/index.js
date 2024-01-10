@@ -23,6 +23,26 @@ const routes = [
     path: '/show',
     name: 'show',
     component: () => import('../views/Woder-list.vue')
+  },
+  {
+    path: '/head',
+    name: 'head',
+    component: () => import('../views/Head-sculpture.vue')
+  },
+  {
+    path: '/expr',
+    name: 'expr',
+    component: () => import('../views/ExpressView.vue')
+  },
+  {
+    path: '/det',
+    name: 'det',
+    component: () => import('../views/DetailsView.vue')
+  },
+  {
+    path: '/mob',
+    name: 'mob',
+    component: () => import('../views/MobileWallpaper.vue')
   }
 ]
 

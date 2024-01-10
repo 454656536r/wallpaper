@@ -68,9 +68,66 @@ const moblie = (req, res) => {
         }
     })
 }
+
+const hade = (req, res) => {
+    let sql = 'SELECT * FROM hade'
+    db.query(sql, (err, result) => {
+        if (err) {
+            res.json({
+                code: 400,
+                msg: err.message
+            })
+        } else {
+            res.json({
+                code: 200,
+                msg: 'ok',
+                data: result
+            })
+        }
+    })
+}
+const avatarlist = (req, res) => {
+    let sql = 'SELECT * FROM avatarlist'
+    db.query(sql, (err, result) => {
+        if (err) {
+            res.json({
+                code: 400,
+                msg: err.message
+            })
+        } else {
+            res.json({
+                code: 200,
+                msg: 'ok',
+                data: result
+            })
+        }
+    })
+}
+const user = (req, res) => {
+    let data = req.body.params
+    console.log(data);
+    let sql = 'SELECT * FROM `user` WHERE `account`  = ? AND `password` = ?'
+    db.query(sql,[data.account,data.password], (err, result) => {
+        if (err) {
+            res.json({
+                code: 400,
+                msg: err.message
+            })
+        } else {
+            res.json({
+                code: 200,
+                msg: 'ok',
+                data: result
+            })
+        }
+    })
+}
 module.exports = {
     booklist,
     label,
     popular,
-    moblie
+    moblie,
+    user,
+    hade,
+    avatarlist
 }

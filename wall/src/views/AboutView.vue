@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <div class="head">
       <div class="share">
-        <svg t="1704349617698" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <svg @click="sharet" t="1704349617698" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2535" width="20" height="20">
           <path
             d="M874.9 459.4c-18.8 0-34 15.2-34 34v355.7c0 18.6-15.5 33.7-34.5 33.7H181.5c-19 0-34.5-15.1-34.5-33.7V232.3c0-18.6 15.5-33.7 34.5-33.7H541c18.8 0 34-15.2 34-34s-15.2-34-34-34H181.5C125 130.6 79 176.2 79 232.3v616.8c0 56 46 101.7 102.5 101.7h624.9c56.5 0 102.5-45.6 102.5-101.7V493.4c0-18.8-15.2-34-34-34z"
@@ -102,7 +102,13 @@
       .catch((error) => {
         console.log(error);
       });
-    }
+    },
+    methods: {
+      sharet(){
+        alert("已分享")
+      }
+      
+    },
   }
 </script>
 <style>

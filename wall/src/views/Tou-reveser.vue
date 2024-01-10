@@ -1,20 +1,18 @@
 <template>
   <div class="about">
+    <!-- 返回 -->
     <router-link to="/">
       <div class="hader">
         <a> ‹ </a>
         <span><b>聊天背景</b></span>
       </div>
     </router-link>
-    <div class="chat">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+    <!-- 图片 -->
+    <div class="chat" >
+      <div v-for="(item, index) in moblie" :key="index"><img :src=item.image></div>
     </div>
     <div class="footert">
+        <!-- 首页 -->
       <div>
         <router-link to="/">
           <svg t="1704423636753" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -27,8 +25,9 @@
         </router-link>
 
       </div>
+      <!-- 分享 -->
       <div>
-        <svg t="1704423087961" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <svg @click="shares" t="1704423087961" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="3012" width="25" height="25">
           <path
             d="M824.487092 906.287384 100.255236 906.287384c-24.939113 0-44.890404-19.951291-44.890404-44.890404L55.364832 137.165124c0-24.939113 19.951291-44.890404 44.890404-44.890404l319.719435 0c8.479299 0 14.963468 6.48417 14.963468 14.963468s-6.48417 14.963468-14.963468 14.963468L100.255236 122.201656c-8.479299 0-14.963468 6.48417-14.963468 14.963468l0 723.733074c0 8.479299 6.48417 14.963468 14.963468 14.963468l723.733074 0c8.479299 0 14.963468-6.48417 14.963468-14.963468l0-343.660984c0-8.479299 6.48417-14.963468 14.963468-14.963468s14.963468 6.48417 14.963468 14.963468l0 343.660984C869.377496 885.837311 848.927423 906.287384 824.487092 906.287384z"
@@ -45,6 +44,27 @@
     </div>
   </div>
 </template>
+<script>
+import axios from "axios"
+export default {
+  data() {
+    return {
+      moblie: [],
+    }
+  },
+  mounted() {
+    axios.get('http://127.0.0.1:3000/wall/moblie')
+      .then((response) => {
+        this.moblie = response.data.data;
+      })
+  },
+  methods:{
+    shares(){
+        alert("已分享")
+      }
+  }
+}
+</script>
 <style>
 .footert svg {
   margin-top: 1px;
@@ -74,21 +94,23 @@
   bottom: 0;
   background-color: white;
 }
-
+.chat img{
+  width: 100%;
+  height: 200px;
+  border-radius: 4px;
+}
 .chat div {
   width: 111px;
   height: 200px;
   float: left;
   margin: 6px;
   border-radius: 4px;
-  border: 1px solid black;
 }
 
 .chat {
   width: 100%;
   height: 1000px;
   margin-top: 50px;
-  background-color: antiquewhite;
 }
 
 .hader {
@@ -113,5 +135,6 @@ a {
 
 .hader span {
   margin-left: 130px;
-}</style>
+}
+</style>
   

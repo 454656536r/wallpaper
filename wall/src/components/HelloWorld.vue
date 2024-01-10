@@ -3,7 +3,7 @@
     <!-- 头部 -->
     <div class="head">
       <div class="share">
-        <svg t="1704349617698" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <svg @click="share" t="1704349617698" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="2535" width="20" height="20">
           <path
             d="M874.9 459.4c-18.8 0-34 15.2-34 34v355.7c0 18.6-15.5 33.7-34.5 33.7H181.5c-19 0-34.5-15.1-34.5-33.7V232.3c0-18.6 15.5-33.7 34.5-33.7H541c18.8 0 34-15.2 34-34s-15.2-34-34-34H181.5C125 130.6 79 176.2 79 232.3v616.8c0 56 46 101.7 102.5 101.7h624.9c56.5 0 102.5-45.6 102.5-101.7V493.4c0-18.8-15.2-34-34-34z"
@@ -36,12 +36,16 @@
               </router-link>
           </div>
           <div>
-            <img src="../assets/2.png" class="image">
-            <a>头像</a>
+            <router-link to="/head">
+              <img src="../assets/2.png" class="image">
+              <a>头像</a>
+            </router-link>
           </div>
           <div>
-            <img src="../assets/3.png" class="image">
-            <a>表情</a>
+            <router-link to="/expr">
+              <img src="../assets/3.png" class="image">
+              <a>表情</a>
+            </router-link>
           </div>
           <div>
             <img src="../assets/1.png" class="image">
@@ -83,47 +87,49 @@
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="精选" name="first1">
                 <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
-                  <img :src= item.image>
+                  <router-link to="/mob">
+                    <img :src= item.image>
+                  </router-link>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="最新" name="first3">
+              <el-tab-pane label="最新" name="first2">
                 <div class="Picture-Wallpaper" v-for="(item, index) in popular" :key="index">
                   <img :src= item.image>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="主题套图" name="first2">
+              <el-tab-pane label="主题套图" name="first3">
                 <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
                   <img :src= item.image>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="天生一对" name="first3">
+              <el-tab-pane label="天生一对" name="first4">
                 <div class="Picture-Wallpaper" v-for="(item, index) in popular" :key="index">
                   <img :src= item.image>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="最佳锁屏" name="first4">
+              <el-tab-pane label="最佳锁屏" name="first5">
                 <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
                   <img :src= item.image>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="一天最热" name="first5">
+              <el-tab-pane label="一天最热" name="first6">
                 <div class="Picture-Wallpaper" v-for="(item, index) in popular" :key="index">
                   <img :src= item.image>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="一周排行" name="first6">
+              <el-tab-pane label="一周排行" name="first7">
                 <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
                   <img :src= item.image>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="人气热榜" name="first7">
+              <el-tab-pane label="人气热榜" name="first8">
                 <div class="Picture-Wallpaper" v-for="(item, index) in popular" :key="index">
                   <img :src= item.image>
                 </div>
               </el-tab-pane>
-              <el-tab-pane label="上传精选" name="first8">
+              <el-tab-pane label="上传精选" name="first9">
                 <div class="Picture-Wallpaper" v-for="(item, index) in moblie" :key="index">
-                  <img :src= item.image>
+                    <img :src= item.image>
                 </div>
               </el-tab-pane>
             </el-tabs>
@@ -134,7 +140,7 @@
     </div>
     <!-- 底部 -->
     <div class="footer">
-      <div>
+      <div class="footerbox">
         <svg t="1704351596948" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="5790" width="32" height="32">
           <path
@@ -143,7 +149,7 @@
         </svg>
         <span>精选</span>
       </div>
-      <div>
+      <div class="footerbox">
         <router-link to="/about">
           <svg t="1704351968437" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="16998" width="32" height="32">
@@ -157,7 +163,7 @@
         <span>搜索</span>
         </router-link>
       </div>
-      <div>
+      <div class="footerbox">
         <router-link to="/show">
           <svg t="1704351911532" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
           p-id="15752" width="32" height="32">
@@ -215,6 +221,14 @@ export default {
       moblie:[],
     }
   },
+  methods: {
+      handleClick(tab, event) {
+        console.log(tab, event);
+      },
+      share(){
+        alert("已分享")
+      }
+    },
   mounted() {
     axios.get('http://127.0.0.1:3000/wall/')
       .then((response) => {
@@ -238,11 +252,6 @@ export default {
         console.log(error);
       });
   },
-  methods: {
-      handleClick(tab, event) {
-        console.log(tab, event);
-      }
-    }
 }
 </script>
 <style scoped>
@@ -283,7 +292,7 @@ li {
   list-style: none;
 }
 
-.tab el-tab-pane:hover {
+.tab el-tab-pane {
   color: rgb(0, 179, 255);
   border-bottom: 3px solid rgb(0, 179, 255);
 }
@@ -487,7 +496,7 @@ li {
   background-color: rgb(240, 240, 240);
 }
 
-.footer div {
+.footerbox {
   width: 30px;
   height: 38px;
   margin-left: 45px;
